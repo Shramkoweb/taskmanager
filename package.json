@@ -1,0 +1,24 @@
+{
+  "name": "react-taskmanager",
+  "version": "0.0.1",
+  "description": "Simple react taskmanager",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Shramkoweb/taskmanager.git"
+  },
+  "keywords": [
+    "React",
+    "JS",
+    "Redux"
+  ],
+  "author": "Serhii Shramko <shramko.web@yahoo.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Shramkoweb/taskmanager/issues"
+  },
+  "homepage": "https://github.com/Shramkoweb/taskmanager#readme"
+}
