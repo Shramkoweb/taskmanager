@@ -1,5 +1,17 @@
 {
+  "parser": "babel-eslint",
+  "env": {
+    "es6": true,
+    "browser": true,
+    "node": true
+  },
+  "extends": [
+    "airbnb",
+    "eslint:recommended"
+  ],
   "rules": {
-
+    "no-console": 0,
+    "max-len": "off",
+    "require-jsdoc": "off"
   }
 }
