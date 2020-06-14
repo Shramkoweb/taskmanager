@@ -12,6 +12,7 @@
   "rules": {
     "no-console": 0,
     "max-len": "off",
-    "require-jsdoc": "off"
+    "require-jsdoc": "off",
+    "jsx-a11y/label-has-associated-control": "off"
   }
 }
