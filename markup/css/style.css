@@ -149,10 +149,13 @@ body {
 
 .board__filter {
   display: inline-block;
-  margin-right: 24px;
+  margin: 0 24px 0 0;
+  border: 0;
+  background: none;
   outline: none;
   text-decoration: none;
   color: #000;
+  padding: 0;
 }
 
 .board__filter:hover,
