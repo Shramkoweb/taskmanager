@@ -9,7 +9,7 @@ const getFileName = (extension) => `bundle[contenthash].${extension}`;
 
 module.exports = {
   context: path.resolve(__dirname, 'src'),
-  entry: './index.js',
+  entry: './index.jsx',
   output: {
     filename: getFileName('js'),
     path: path.resolve(__dirname, 'dist'),
