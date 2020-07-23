@@ -253,6 +253,7 @@ body {
 }
 .card__btn--disabled {
   color: #e7e3e3;
+  cursor: not-allowed;
 }
 .card__color-bar {
   width: 100%;
