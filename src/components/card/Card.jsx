@@ -3,7 +3,6 @@ import cn from 'classnames';
 
 const Card = ({ card }) => {
   const { color, description } = card;
-  console.log(card);
 
   const cardClassnames = cn('card', {
     [`card--${color}`]: true,

@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Menu from './components/menu/Menu';
 import Filters from './components/filters/Filters';
@@ -7,24 +8,30 @@ import Sorting from './components/sorting/Sorting';
 import TaskContainer from './components/task-container/TaskContainer';
 import Card from './components/card/Card';
 import LoadMore from './components/load-more/LoadMore';
+import { makeTest } from './redux/tasks/tasks.actions';
 
-const App = () => {
+import Api from './api';
+
+const api = new Api('https://11.ecmascript.pages.academy/task-manager');
+
+const App = (props) => {
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    fetch('https://11.ecmascript.pages.academy/task-manager/tasks', {
-      headers: {
-        Authorization: 'Basic er883jdzbdw',
-      },
-    })
-      .then((response) => response.json())
-      .then(setCards);
+    api.getTasks()
+      .then(({ data }) => setCards(data));
   }, []);
+
+  const onTitleClick = () => {
+    const { dispatch } = props;
+
+    dispatch(makeTest());
+  };
 
   return (
     <main className="main">
       <header className="main__control control container">
-        <h1 className="control__title">TASKMANAGER</h1>
+        <h1 onClick={onTitleClick} className="control__title">TASKMANAGER</h1>
         <Menu />
       </header>
 
@@ -41,7 +48,7 @@ const App = () => {
           }
 
           {
-            cards.length > 8 && <LoadMore/>
+            cards.length > 8 && <LoadMore />
           }
         </TaskContainer>
       </Board>
@@ -49,4 +56,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default connect()(App);
