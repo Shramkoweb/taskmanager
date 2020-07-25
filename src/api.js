@@ -1,8 +1,9 @@
 import axios from 'axios';
 
 class Api {
-  constructor(baseURL) {
+  constructor(baseURL, authorization) {
     this.api = axios.create({ baseURL });
+    this.authorization = authorization;
   }
 
   // TODO check axios empty config is correct
@@ -14,7 +15,7 @@ class Api {
     return this.get('/tasks', {
       timeout: 2000,
       headers: {
-        Authorization: 'Basic er883jdzbdw',
+        Authorization: this.authorization,
       },
     });
   }

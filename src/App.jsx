@@ -1,5 +1,6 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
 import Menu from './components/menu/Menu';
 import Filters from './components/filters/Filters';
@@ -8,30 +9,21 @@ import Sorting from './components/sorting/Sorting';
 import TaskContainer from './components/task-container/TaskContainer';
 import Card from './components/card/Card';
 import LoadMore from './components/load-more/LoadMore';
-import { makeTest } from './redux/tasks/tasks.actions';
 
-import Api from './api';
+import { fetchTasks } from './redux/tasks/tasks.actions';
+import { getTaskItems } from './redux/tasks/tasks.selectors';
 
-const api = new Api('https://11.ecmascript.pages.academy/task-manager');
-
-const App = (props) => {
-  const [cards, setCards] = React.useState([]);
+const App = ({ tasks }) => {
+  const dispatch = useDispatch();
 
   React.useEffect(() => {
-    api.getTasks()
-      .then(({ data }) => setCards(data));
+    dispatch(fetchTasks());
   }, []);
-
-  const onTitleClick = () => {
-    const { dispatch } = props;
-
-    dispatch(makeTest());
-  };
 
   return (
     <main className="main">
       <header className="main__control control container">
-        <h1 onClick={onTitleClick} className="control__title">TASKMANAGER</h1>
+        <h1 className="control__title">TASKMANAGER</h1>
         <Menu />
       </header>
 
@@ -42,13 +34,13 @@ const App = (props) => {
 
         <TaskContainer>
           {
-            cards.length
-              ? cards.map((card) => <Card key={card.id} card={card} />)
+            tasks.length
+              ? tasks.map((task) => <Card key={task.id} card={task} />)
               : 'Loading...'
           }
 
           {
-            cards.length > 8 && <LoadMore />
+            tasks.length > 8 && <LoadMore />
           }
         </TaskContainer>
       </Board>
@@ -56,4 +48,8 @@ const App = (props) => {
   );
 };
 
-export default connect()(App);
+const mapStateToProps = createStructuredSelector({
+  tasks: getTaskItems,
+});
+
+export default connect(mapStateToProps)(App);

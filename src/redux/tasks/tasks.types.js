@@ -1,5 +1,7 @@
 const actionTypes = {
-  TEST: 'TEST',
+  FETCH_TASKS: 'FETCH_TASKS',
+  FETCH_TASKS_SUCCEEDED: 'FETCH_TASKS_SUCCEED',
+  FETCH_TASKS_FAILED: 'FETCH_TASKS_FAILED',
 };
 
 export default actionTypes;
