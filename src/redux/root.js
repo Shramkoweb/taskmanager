@@ -1,6 +1,15 @@
 import { combineReducers } from 'redux';
-import tasks from './tasks/tasks.reducer';
+import { all } from 'redux-saga/effects';
 
-export default combineReducers({
+import tasks from './tasks/tasks.reducer';
+import { watchFetchTasks } from './tasks/task.sagas';
+
+export const rootReducer = combineReducers({
   tasks,
 });
+
+export const rootSaga = function* rootSaga() {
+  yield all([
+    watchFetchTasks(),
+  ]);
+};

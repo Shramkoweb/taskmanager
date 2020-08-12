@@ -1,11 +1,50 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import cn from 'classnames';
+import { connect } from 'react-redux';
+import { createStructuredSelector } from 'reselect';
 
-const Sorting = () => (
-  <div className="board__filter-list">
-    <button className="board__filter" type="button" data-sort-type="default">SORT BY DEFAULT</button>
-    <button className="board__filter" type="button" data-sort-type="date-up">SORT BY DATE up</button>
-    <button className="board__filter" type="button" data-sort-type="date-down">SORT BY DATE down</button>
-  </div>
-);
+import { changeSortType } from '../../redux/tasks/tasks.actions';
+import { getSortType } from '../../redux/tasks/tasks.selectors';
+import { sortTypes } from '../../constants';
 
-export default Sorting;
+const sortTypeValues = Object.values(sortTypes);
+const renderSortButtons = (types, onClick, currentSortType) => types.map((type) => (
+  <button
+    onClick={onClick}
+    className={cn('board__filter', {
+      'board__filter--active': currentSortType === type,
+    })}
+    type="button"
+    data-sort-type={type}
+  >
+    {`SORT BY ${type}`}
+  </button>
+));
+
+const Sorting = ({ onChangeSortType, currentSortType }) => {
+  const handleClick = ({ target }) => {
+    onChangeSortType(target.dataset.sortType);
+  };
+
+  return (
+    <div className="board__filter-list">
+      {renderSortButtons(sortTypeValues, handleClick, currentSortType)}
+    </div>
+  );
+};
+
+Sorting.propTypes = {
+  onChangeSortType: PropTypes.func.isRequired,
+  currentSortType: PropTypes.string.isRequired,
+};
+
+const mapStateToProps = createStructuredSelector({
+  currentSortType: getSortType,
+});
+
+const mapDispatchToProps = {
+  onChangeSortType: changeSortType,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Sorting);
