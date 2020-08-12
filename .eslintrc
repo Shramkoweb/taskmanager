@@ -13,6 +13,7 @@
     "no-console": 0,
     "max-len": "off",
     "require-jsdoc": "off",
-    "jsx-a11y/label-has-associated-control": "off"
+    "jsx-a11y/label-has-associated-control": "off",
+    "dot-notation": ["warn", { "allowPattern": "^[a-z]+(_[a-z]+)+$" }]
   }
 }
