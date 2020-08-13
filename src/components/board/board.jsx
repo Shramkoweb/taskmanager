@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const Board = ({ children }) => (
@@ -7,3 +8,7 @@ const Board = ({ children }) => (
 );
 
 export default Board;
+
+Board.propTypes = {
+  children: PropTypes.node.isRequired,
+};

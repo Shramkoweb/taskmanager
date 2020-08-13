@@ -14,8 +14,14 @@ const fetchTasksSuccees = (tasks) => ({
   payload: tasks,
 });
 
+const changeSortType = (type) => ({
+  type: actionTypes.CHANGE_SORT_TYPE,
+  payload: type,
+});
+
 export {
   fetchFailed,
   fetchTasks,
   fetchTasksSuccees,
+  changeSortType,
 };

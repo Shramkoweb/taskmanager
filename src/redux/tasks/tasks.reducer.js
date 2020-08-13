@@ -1,10 +1,12 @@
 import actionTypes from './tasks.types';
+import { sortTypes } from '../../constants';
 
 const initialState = {
   items: [],
   isFetching: false,
   isLoaded: false,
   errors: [],
+  sortType: sortTypes.DEFAULT,
 };
 
 const reducer = (state = initialState, action) => {
@@ -26,6 +28,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         errors: [...state.errors, action.payload],
         isLoaded: true,
+      };
+    case actionTypes.CHANGE_SORT_TYPE:
+      return {
+        ...state,
+        sortType: action.payload,
       };
     default:
       return state;

@@ -2,18 +2,16 @@ import { applyMiddleware, createStore } from 'redux';
 import createSagaMiddleware from 'redux-saga';
 import logger from 'redux-logger';
 
-import { watchFetchTasks } from './tasks/task.sagas';
-
-import root from './root';
+import { rootReducer, rootSaga } from './root';
 
 const sagaMiddleware = createSagaMiddleware();
 const middlewares = [sagaMiddleware, logger];
 
 const store = createStore(
-  root,
+  rootReducer,
   applyMiddleware(...middlewares),
 );
 
-sagaMiddleware.run(watchFetchTasks);
+sagaMiddleware.run(rootSaga);
 
 export default store;
