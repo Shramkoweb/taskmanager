@@ -1,87 +1,60 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-const Filters = () => (
+import { createStructuredSelector } from 'reselect';
+import { getTasks } from '../../redux/tasks/tasks.selectors';
+import { getTasksByFilter } from '../../utils/utils';
+import { filterTypes } from '../../constants';
+
+const getFiltersCount = (tasks) => Object
+  .values(filterTypes)
+  .map((filterType) => ({
+    name: filterType,
+    // TODO need remove recalc array
+    count: getTasksByFilter(tasks, filterType).length,
+  }));
+
+const renderFilter = (filter) => {
+  const { name, count } = filter;
+  const isDisabled = count === 0;
+  return (
+    <div key={name}>
+      <input
+        type="radio"
+        id={`filter__${name}`}
+        className="filter__input visually-hidden"
+        name="filter"
+        disabled={isDisabled}
+      />
+      <label
+        htmlFor={`filter__${name}`}
+        className="filter__label"
+      >
+        {name}
+        <span className="filter__all-count">
+          &nbsp;
+          {count}
+        </span>
+      </label>
+    </div>
+  );
+};
+
+const renderFilters = (tasks) => getFiltersCount(tasks).map((filter) => renderFilter(filter));
+
+const Filters = ({ tasks }) => (
   <section className="main__filter filter container">
-    <input
-      type="radio"
-      id="filter__all"
-      className="filter__input visually-hidden"
-      name="filter"
-      defaultChecked
-    />
-    <label htmlFor="filter__all" className="filter__label">
-      All
-      <span className="filter__all-count">13</span>
-    </label>
-    <input
-      type="radio"
-      id="filter__overdue"
-      className="filter__input visually-hidden"
-      name="filter"
-      disabled
-    />
-    <label
-      htmlFor="filter__overdue"
-      className="filter__label"
-    >
-      Overdue
-      <span className="filter__overdue-count">0</span>
-    </label>
-    <input
-      type="radio"
-      id="filter__today"
-      className="filter__input visually-hidden"
-      name="filter"
-      disabled
-    />
-    <label
-      htmlFor="filter__today"
-      className="filter__label"
-    >
-      Today
-      <span className="filter__today-count">0</span>
-    </label>
-    <input
-      type="radio"
-      id="filter__favorites"
-      className="filter__input visually-hidden"
-      name="filter"
-    />
-    <label
-      htmlFor="filter__favorites"
-      className="filter__label"
-    >
-      Favorites
-      <span className="filter__favorites-count">1</span>
-    </label>
-    <input
-      type="radio"
-      id="filter__repeating"
-      className="filter__input visually-hidden"
-      name="filter"
-    />
-    <label
-      htmlFor="filter__repeating"
-      className="filter__label"
-    >
-      Repeating
-      <span className="filter__repeating-count">1</span>
-    </label>
-    <input
-      type="radio"
-      id="filter__archive"
-      className="filter__input visually-hidden"
-      name="filter"
-    />
-    <label
-      htmlFor="filter__archive"
-      className="filter__label"
-    >
-      Archive
-      <span className="filter__archive-count">115</span>
-    </label
-    >
+    {renderFilters(tasks)}
   </section>
 );
 
-export default Filters;
+const mapStateToProps = createStructuredSelector({
+  tasks: getTasks,
+});
+
+Filters.propTypes = {
+  tasks: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
+
+export default connect(mapStateToProps)(Filters);

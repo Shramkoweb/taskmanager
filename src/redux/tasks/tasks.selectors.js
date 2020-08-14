@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import sortBy from 'lodash/sortBy';
 
-import sortTypes from '../../constants';
+import { sortTypes } from '../../constants';
 
 export const getTasksState = (state) => state.tasks;
 
@@ -15,6 +15,8 @@ export const getTasks = createSelector(
   (taskState) => taskState.items,
 );
 
+// TODO rewrite sortBy to func with moment?
+// https://thomaskekeisen.de/en/blog/array-date-sort-lodash-momentjs/
 export const getSortedTasks = createSelector(
   [getTasks, getSortType],
   (tasks, sortType) => {
