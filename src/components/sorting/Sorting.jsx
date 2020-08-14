@@ -6,11 +6,12 @@ import { createStructuredSelector } from 'reselect';
 
 import { changeSortType } from '../../redux/tasks/tasks.actions';
 import { getSortType } from '../../redux/tasks/tasks.selectors';
-import { sortTypes } from '../../constants';
+import sortTypes from '../../constants';
 
 const sortTypeValues = Object.values(sortTypes);
 const renderSortButtons = (types, onClick, currentSortType) => types.map((type) => (
   <button
+    key={type}
     onClick={onClick}
     className={cn('board__filter', {
       'board__filter--active': currentSortType === type,

@@ -1,5 +1,5 @@
 import actionTypes from './tasks.types';
-import { sortTypes } from '../../constants';
+import sortTypes from '../../constants';
 
 const initialState = {
   items: [],

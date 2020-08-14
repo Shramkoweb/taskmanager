@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import cn from 'classnames';
+import { formatDueDate } from '../../utils/moment';
 
 const createEditButton = (name, isActive = true) => {
   const btnClassNames = cn('card__btn', {
@@ -21,7 +22,10 @@ const Card = ({ card }) => {
     repeatingDays,
     isArchived,
     isFavorite,
+    dueDate,
   } = card;
+
+  const { date, time } = formatDueDate(dueDate);
 
   const cardClassnames = cn('card', {
     [`card--${color}`]: true,
@@ -65,8 +69,8 @@ const Card = ({ card }) => {
               <div className="card__dates">
                 <div className="card__date-deadline">
                   <p className="card__input-deadline-wrap">
-                    <span className="card__date">23 September</span>
-                    <span className="card__time">16:15</span>
+                    <span className="card__date">{date}</span>
+                    <span className="card__time">{time}</span>
                   </p>
                 </div>
               </div>
@@ -85,6 +89,8 @@ Card.propTypes = {
     isArchived: PropTypes.bool.isRequired,
     isFavorite: PropTypes.bool.isRequired,
     repeatingDays: PropTypes.objectOf(PropTypes.bool).isRequired,
+
+    dueDate: PropTypes.string,
   }).isRequired,
 };
 

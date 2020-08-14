@@ -1,7 +1,7 @@
 import { createSelector } from 'reselect';
 import sortBy from 'lodash/sortBy';
 
-import { sortTypes } from '../../constants';
+import sortTypes from '../../constants';
 
 export const getTasksState = (state) => state.tasks;
 
