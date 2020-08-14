@@ -1,6 +1,6 @@
 import cloneDeep from 'lodash/cloneDeep';
 
-export const adaptAPI = (apiResponse) => {
+const adaptTasksResponse = (apiResponse) => {
   const response = cloneDeep(apiResponse);
 
   return response.map((item) => ({
@@ -13,3 +13,5 @@ export const adaptAPI = (apiResponse) => {
     repeatingDays: item['repeating_days'],
   }));
 };
+
+export default adaptTasksResponse;
